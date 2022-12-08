@@ -1,6 +1,6 @@
 #DF AMAZON 
 import pandas as pd
-amazon_titles = pd.read_csv("/app/datasets/amazon_prime_titles.csv",delimiter = ',',encoding = "utf-8")
+amazon_titles = pd.read_csv("amazon_prime_titles.csv",delimiter = ',',encoding = "utf-8")
 amazon_titles.drop(columns=['show_id','director','country','rating','description','date_added'], inplace=True)
 amazon_titles.fillna( 'SinDatos',inplace=True)
 amazon_titles = amazon_titles.assign(Plataforma="amazon")
@@ -9,21 +9,21 @@ amazon_titles = amazon_titles.assign(Plataforma="amazon")
 
 #DF DISNEY
 
-disney_plus_titles = pd.read_csv("/app/datasets/disney_plus_titles.csv",delimiter = ',',encoding = "utf-8")
+disney_plus_titles = pd.read_csv("disney_plus_titles.csv",delimiter = ',',encoding = "utf-8")
 disney_plus_titles.drop(columns=['show_id','director','country','rating','description','date_added'], inplace=True)
 disney_plus_titles.fillna( 'SinDatos',inplace=True)
 disney_plus_titles=disney_plus_titles.assign(Plataforma="disney")
 
 #DF Hulu
 
-hulu_titles=pd.read_csv("/app/datasets/hulu_titles.csv",delimiter = ',',encoding = "utf-8")
+hulu_titles=pd.read_csv("hulu_titles.csv",delimiter = ',',encoding = "utf-8")
 hulu_titles.drop(columns=['show_id','director','country','rating','description','date_added'], inplace=True)
 hulu_titles.fillna( 'SinDatos',inplace=True)
 hulu_titles=hulu_titles.assign(Plataforma="hulu")
 
 #DF Netflix
 
-netflix_titles=pd.read_json("/app/datasets/netflix_titles.json")
+netflix_titles=pd.read_json("netflix_titles.json")
 netflix_titles.drop(columns=['show_id','director','country','rating','description','date_added'], inplace=True)
 netflix_titles.fillna( 'SinDatos',inplace=True)
 netflix_titles=netflix_titles.assign(Plataforma="netflix")
@@ -76,8 +76,8 @@ def get_listedin(genero):
 
 ##4 Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)
 
-def get_actor(plataforma,ano):
-    df04=df_completo.query(f'release_year == {ano} and Plataforma == {plataforma}' )
+async def get_actor(plataforma,ano):
+    df04=df_completo.query(f'Plataforma == {plataforma} and release_year == {ano}' )
     new_df = pd.DataFrame(df04["cast"].str.split(',', expand=True).stack(), columns=["cast"])
     resultado=new_df.groupby(["cast"])["cast"].count().sort_values(ascending=False)
     dfx=pd.DataFrame(resultado)
@@ -85,3 +85,5 @@ def get_actor(plataforma,ano):
     cantidad=dfx['cast'].iloc[0]
     diccionario={'plataform': plataforma,'cantidad': cantidad,'actores':nombre}
     return diccionario
+
+  
