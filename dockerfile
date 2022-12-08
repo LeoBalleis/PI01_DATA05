@@ -2,7 +2,7 @@ FROM tiangolo/uvicorn-gunicorn-fastapi
 
 RUN pip install pandas
 
-EXPOSE  8080
+EXPOSE  80
 
 COPY ./app /app 
 
