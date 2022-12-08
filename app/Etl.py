@@ -76,8 +76,8 @@ def get_listedin(genero):
 
 ##4 Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)
 
-async def get_actor(plataforma,ano):
-    df04=df_completo.query(f'Plataforma == {plataforma} and release_year == {ano}' )
+def get_actor(plataforma,ano):
+    df04=df_completo.query(f'release_year == {ano} and Plataforma == {plataforma} and ' )
     new_df = pd.DataFrame(df04["cast"].str.split(',', expand=True).stack(), columns=["cast"])
     resultado=new_df.groupby(["cast"])["cast"].count().sort_values(ascending=False)
     dfx=pd.DataFrame(resultado)
