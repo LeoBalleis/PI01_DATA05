@@ -1,11 +1,10 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
 
-RUN pip install pandas
+COPY ./requirements.txt /app/requirements.txt
 
-EXPOSE  80
-
-COPY ./app /app 
-
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+EXPOSE  8080
+COPY ./app /app
 
 
 
