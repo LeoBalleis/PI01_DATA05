@@ -4,7 +4,7 @@ from Etl import df_completo
 import pandas as pd
 
 
-app=FastAPI()
+app=FastAPI()# Instancio la aplicaion 
 
 @app.get("/",response_class=HTMLResponse)
 async def index():

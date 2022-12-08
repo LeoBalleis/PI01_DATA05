@@ -1,11 +1,10 @@
 #DF AMAZON 
-import pandas as pd
-amazon_titles = pd.read_csv("amazon_prime_titles.csv",delimiter = ',',encoding = "utf-8")
-amazon_titles.drop(columns=['show_id','director','country','rating','description','date_added'], inplace=True)
-amazon_titles.fillna( 'SinDatos',inplace=True)
-amazon_titles = amazon_titles.assign(Plataforma="amazon")
+import pandas as pd #Importo las librerías a utilizar
+amazon_titles = pd.read_csv("amazon_prime_titles.csv",delimiter = ',',encoding = "utf-8")#Armo el dataset de amazon
+amazon_titles.drop(columns=['show_id','director','country','rating','description','date_added'], inplace=True) #Elimino las columnas que no me servirán para las consultas indicadas.
+amazon_titles.fillna( 'SinDatos',inplace=True)#Reemplazo mis valores nulos por "Sin datos" en lugar de eliminarlos para no perder información
+amazon_titles = amazon_titles.assign(Plataforma="amazon") # Agrego una columna para identificar la Plataforma
 
-# FALTAN CAMBIAR LAS RUTAS
 
 #DF DISNEY
 
@@ -32,17 +31,21 @@ netflix_titles=netflix_titles.assign(Plataforma="netflix")
 
 df_completo= pd.concat([netflix_titles,hulu_titles,disney_plus_titles,amazon_titles])
 df_completo.reset_index(inplace=True)
+
 # Separo mi columna 'duration' en 'duration' y 'unit'
 dfextra=df_completo.duration.str.split(expand=True)
 dfextra=dfextra.reset_index()
 dfextra[1]=dfextra[1].replace({'Season': 'Seasons'})# Normalizo el str seasons
 df_completo=pd.concat([df_completo,dfextra],axis=1)# concateno con el df principal
 df_completo.drop(columns=['duration','index'],inplace=True)# dropeo las columnas sobrantes
-df_completo=df_completo.rename(columns={0:'duration',1:'unit'})
+df_completo=df_completo.rename(columns={0:'duration',1:'unit'})# Le doy un nombre logico a las columnas 
+
+# Reeplazo por 0 el 'SinDatos' de la columna duration  y los none de unit 
 df_completo['duration']=df_completo['duration'].replace({'SinDatos': 0})
 df_completo['unit']=df_completo['unit'].replace({None: 0})
-df_completo['duration']=df_completo['duration'].astype(int)
-df_completo['cast']=df_completo['cast'].replace({'SinDatos':None})
+
+df_completo['duration']=df_completo['duration'].astype(int)# Convierto la columna duration a int para poder comparar 
+df_completo['cast']=df_completo['cast'].replace({'SinDatos':None})# Reeplazo en la columna cast 'SinDatos' por None
 
 # Armo las Querrys para que me devuelvan diccionarios y se me facilite el trabajo con la API
 
