@@ -28,18 +28,7 @@ async def index():
   p    {  color: #cdd9e5;
           font-family: verdana;
           font-size: 200%;}
-  a    {  display: block;
-          width: 130px;
-          font-family: verdana
-          font-weight: 700;
-          background-color: #AD0306;
-          border-radius:10px;
-          color: #cdd9e5;
-          text-decoration: none;
-          margin: 15px 20px}
- a:hover {background-color: transparent;
-          border: 2px solid #539bf5
-          color: #539bf5}
+  
 </style>
 <body>
     <h1>Guía de Usuario de la API</h1>
