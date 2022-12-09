@@ -73,8 +73,7 @@ def get_listedin(genero):
     dtftest=df03[['Plataforma','listed_in']].groupby(['Plataforma']).count()
     nombre=dtftest.iloc[0].name
     cantidad=dtftest['listed_in'].iloc[0]
-    diccionario={'plataform':nombre,'cantidad':cantidad}
-    return diccionario
+    return f'El género {genero} aparece {cantidad} veces en {nombre}'
 
 
 ##4 Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)
@@ -86,7 +85,7 @@ def get_actor(plataforma,ano):
     dfx=pd.DataFrame(resultado)
     nombre=dfx.iloc[0].name
     cantidad=dfx['cast'].iloc[0]
-    diccionario={'plataform': plataforma,'cantidad': cantidad,'actores':nombre}
-    return diccionario
+    return f'El actor/actriz con mayor número de apariciones en la plataforma {plataforma} el año {ano} es {nombre} con {cantidad} apariciones.'
+
 
   
