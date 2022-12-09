@@ -32,7 +32,7 @@ async def index():
 </style>
 <body>
     <h1>Guía de Usuario de la API</h1>
-    <h1>IMPORTANTE: Los textos ponerlos entre comillas "" </h1>
+    <h1>IMPORTANTE: Los textos ponerlos entre comillas ej: "netflix", "seasons" </h1>
     <p>Devuelve la película/serie con mayor duración por plataforma, año y tipo de duración (min o seasons).</p>
     <h3>ej: /get_max_duration/2020/"netflix"/"min"</h3> 
     <p>Devuelve la cantidad de películas y de series por plataforma</p>
